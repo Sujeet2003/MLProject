@@ -8,11 +8,11 @@ from src.pipeline.predict_pipeline import PredictPipeline, CustomData
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-@app.route('/prediction', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def predict():
     if request.method == 'GET':
         return render_template('home.html')
@@ -29,8 +29,7 @@ def predict():
         prediction_df = data.get_data_as_dataframe()
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(prediction_df)
-        print(results)
-        return render_template('home.html', results=results[0])
+        return render_template('home.html', results=int(results[0]))
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
